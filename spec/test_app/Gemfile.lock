@@ -2,6 +2,7 @@ PATH
   remote: ../..
   specs:
     recommender (0.1.0)
+      activesupport (>= 3.0.0)
       database_cleaner-active_record
       faker (~> 2.21)
       pry-rails

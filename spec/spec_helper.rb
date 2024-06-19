@@ -6,7 +6,7 @@ require "faker"
 require 'database_cleaner/active_record'
 require 'factories/users.rb'
 require 'factories/movies.rb'
-require 'factories/liked_movies.rb'
+require 'factories/movie_likes.rb'
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -15,7 +15,6 @@ require File.expand_path('../test_app/config/environment.rb', __FILE__)
 Dir[Rails.root.join('spec', 'models', 'factories', '**', '*.rb')].sort.each { |file| require file }
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
 
   config.include FactoryBot::Syntax::Methods
