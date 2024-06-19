@@ -36,4 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rails', '~> 7.1.3'
   spec.add_runtime_dependency 'database_cleaner-active_record'
   spec.add_runtime_dependency 'pry-rails'
+  spec.add_runtime_dependency 'faker', '~> 2.21'
 end
