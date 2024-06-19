@@ -3,14 +3,7 @@
 # spec/recommender/recommendation_spec.rb
 require_relative "../spec_helper"
 
-
 RSpec.describe Recommender::Recommendation, type: :module do
-  before do
-    User.setup_associations
-    User.include Recommender::Recommendation
-    User.set_association :movies
-  end
-
   let(:user) { User.create(name: "Alice") }
 
   # let(:user) { User.create(id: 1, movies: ["Movie A", "Movie B"]) }

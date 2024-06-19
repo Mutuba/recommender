@@ -2,16 +2,13 @@
 
 require "recommender"
 require 'factory_bot_rails'
-
-# Load models
-require_relative 'test_app/app/models/user.rb'
+require 'database_cleaner/active_record'
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
 
-# Require RSpec and its configuration
-require 'rspec/rails'
-
+require File.expand_path('../test_app/config/environment.rb', __FILE__)
+# Load models
+require_relative 'test_app/app/models/user.rb'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -27,7 +24,6 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    # Load factories and any other setup needed before tests run
     FactoryBot.find_definitions
   end
 

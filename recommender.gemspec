@@ -31,5 +31,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rspec", "~> 3.9.0"
+  spec.add_development_dependency  "pg", "~> 1.1"
   spec.add_development_dependency "factory_bot_rails", "~> 6.2"
+  spec.add_runtime_dependency 'rails', '~> 7.1.3'
+  spec.add_runtime_dependency 'database_cleaner-active_record'
+  spec.add_runtime_dependency 'pry-rails'
 end
