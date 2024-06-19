@@ -7,4 +7,8 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "rspec", "~> 3.0"
+group :development, :test do
+    gem 'sqlite3', '~> 1.4'
+    gem 'rspec', '~> 3.9.0'
+    gem 'factory_bot_rails', '~> 6.2'
+end
