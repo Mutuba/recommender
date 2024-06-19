@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require "active_support/concern"
+
 module Recommender
   module Recommendation
     extend ActiveSupport::Concern

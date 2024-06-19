@@ -2,34 +2,16 @@
 
 require "recommender"
 require 'factory_bot_rails'
-require 'active_record'
 
 # Load models
-require_relative '../lib/recommender/user'
-require_relative '../lib/recommender/movie'
-require_relative '../lib/recommender/liked_movie'
+require_relative 'test_app/app/models/user.rb'
 
-# Set up ActiveRecord with an in-memory SQLite database
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
 
-# Define schema
-ActiveRecord::Schema.define do
-  create_table :users do |t|
-    t.string :name
-    t.timestamps
-  end
+# Require RSpec and its configuration
+require 'rspec/rails'
 
-  create_table :movies do |t|
-    t.string :title
-    t.timestamps
-  end
-
-  create_table :liked_movies do |t|
-    t.references :user, foreign_key: true
-    t.references :movie, foreign_key: true
-    t.timestamps
-  end
-end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
