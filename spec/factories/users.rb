@@ -9,8 +9,6 @@ FactoryBot.define do
         movies = [
           "Avengers: Infinity War",
           "Star Wars: The Force Awakens",
-          "Avatar",
-          "Titanic",
           "Marvel’s The Avengers",
           "Star Wars: The Last Jedi",
           "The Dark Knight",
@@ -20,9 +18,10 @@ FactoryBot.define do
         ]
 
         movies.each do |movie_name|
-          movie = FactoryBot.create(:movie, name: movie_name)
-          FactoryBot.create(:movie_like, user: user, movie: movie)
+          movie = Movie.find_or_create_by(name: movie_name)
+          user.movie_likes.create(movie: movie)
         end
       end
     end
   end
+end

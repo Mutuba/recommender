@@ -70,7 +70,6 @@ module Recommender
   
         # Combine the similarity scores with the collaborative filtering weight
         weight = (jaccard_index + dice_sorensen_coefficient + collaborative_weight) / 3.0
-  
         (instance_items - common_items).each do |item_id|
           # Exclude items that are already liked by the user
           acc[item_id] += weight unless self_items.include?(item_id)

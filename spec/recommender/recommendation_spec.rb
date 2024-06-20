@@ -4,22 +4,26 @@
 require_relative "../spec_helper"
 
 RSpec.describe Recommender::Recommendation, type: :module do
+  let(:first_user_with_movies) { create(:user, :with_movie_likes) }
+  let(:second_user_with_movies) { create(:user, :with_movie_likes) }
 
-  let(:user_with_movies) { create(:user, :with_movies) }
-  let(:movies) { create_list(:movie, 10)}
-  # let(:user) { User.create(id: 1, movies: ["Movie A", "Movie B"]) }
+  let(:movies) { create_list(:movie, 2)}
 
   describe "#recommendations" do
     it "has a version number" do
       expect(Recommender::VERSION).not_to be nil
     end
     it "returns recommended movies based on similarity measures" do
-      binding.pry
-      other_user = User.create(id: 2, movies: ["Movie B", "Movie C"])
-      allow(User).to receive(:where).and_return([other_user])
-
-      recommendations = user.recommendations
-      expect(recommendations).to eq([["Movie C", some_weight]]) # Adjust as needed based on your expectations
+      # add two movies to the list of movies for first_user_with_movies
+      first_user_with_movies.movies << movies
+      # get second_user_with_movies recommendations
+      recommendations = second_user_with_movies.recommendations
+     # Extract the movies from the recommendations
+     recommended_movies = recommendations.map { |recommendation| recommendation.first }
+     # Check if the recommended movies include the movies
+     movies.each do |movie|
+       expect(recommended_movies).to include(movie)
+     end
     end
   end
 end
