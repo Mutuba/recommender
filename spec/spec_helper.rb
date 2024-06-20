@@ -4,15 +4,12 @@ require "recommender"
 require 'factory_bot_rails'
 require "faker"
 require 'database_cleaner/active_record'
-require 'factories/users.rb'
-require 'factories/movies.rb'
-require 'factories/movie_likes.rb'
-
 ENV['RAILS_ENV'] ||= 'test'
-
 require File.expand_path('../test_app/config/environment.rb', __FILE__)
 
-Dir[Rails.root.join('spec', 'models', 'factories', '**', '*.rb')].sort.each { |file| require file }
+factories_path = File.expand_path("../spec/factories/**/*.rb", __dir__)
+Dir[factories_path].sort.each { |file| require file }
+Dir[Rails.root.join('spec', '**', '*.rb')].sort.each { |file| require file }
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = ".rspec_status"
