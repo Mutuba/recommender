@@ -66,5 +66,14 @@ RSpec.describe Recommender::Recommendation, type: :module do
       # Check that the second_movie appears first in the rating list
       expect(recommendations[0][0]).to eq(second_movie)
     end
+
+    it "handles edge cases gracefully" do
+      single_user = create(:user, :with_movie_likes)
+      expect(single_user.recommendations).to be_empty
+
+      empty_system = User.destroy_all
+      new_user = create(:user)
+      expect(new_user.recommendations).to be_empty
+    end
   end
 end
