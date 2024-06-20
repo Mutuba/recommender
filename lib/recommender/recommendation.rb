@@ -53,7 +53,7 @@ module Recommender
       end
     end
   
-    def recommendations(results: 10)
+    def recommendations(results: 5)
       other_instances = self.class.where.not(id: id)
       self_items = send(self.class.association_metadata.join_table).pluck(self.class.association_metadata.association_foreign_key).to_set
   
