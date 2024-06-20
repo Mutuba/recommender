@@ -42,9 +42,9 @@ module Recommender
           )
         when ActiveRecord::Reflection::HasManyReflection
           AssociationMetadata.new(
-            reflection.name.to_s.pluralize,
+            reflection.klass.table_name, # reflection.name.to_s.pluralize,
             reflection.foreign_key,
-            nil,
+            reflection.foreign_key,
             reflection.name
           )
         else
@@ -55,10 +55,11 @@ module Recommender
   
     def recommendations(results: 5)
       other_instances = self.class.where.not(id: id)
-      self_items = send(self.class.association_metadata.join_table).pluck(self.class.association_metadata.association_foreign_key).to_set
+      self_items = send(self.class.association_metadata.reflection_name).pluck(:id).to_set
+
   
       item_recommendations = other_instances.reduce(Hash.new(0)) do |acc, instance|
-        instance_items = instance.send(self.class.association_metadata.join_table).pluck(self.class.association_metadata.association_foreign_key).to_set
+        instance_items = instance.send(self.class.association_metadata.reflection_name).pluck(:id).to_set
         common_items = instance_items & self_items
   
         # Calculate similarity scores using the Jaccard Index and Dice-Sørensen Coefficient
