@@ -4,13 +4,13 @@
 require_relative "../spec_helper"
 
 RSpec.describe Recommender::Recommendation, type: :module do
-  let(:first_user_with_movies) { create(:user, :with_movie_likes) }
-  let(:second_user_with_movies) { create(:user, :with_movie_likes) }
-  let(:third_user_with_movies) { create(:user, :with_movie_likes) }
-  let(:first_movie) { create(:movie, name: "Stranger Things") }
-  let(:second_movie) { create(:movie, name: "3 Body Problem") }
+  describe "#recommendations ThroughReflection" do
+    let(:first_user_with_movies) { create(:user, :with_movie_likes) }
+    let(:second_user_with_movies) { create(:user, :with_movie_likes) }
+    let(:third_user_with_movies) { create(:user, :with_movie_likes) }
+    let(:first_movie) { create(:movie, name: "Stranger Things") }
+    let(:second_movie) { create(:movie, name: "3 Body Problem") }
 
-  describe "#recommendations" do
     it "has a version number" do
       expect(Recommender::VERSION).not_to be nil
     end
@@ -74,6 +74,30 @@ RSpec.describe Recommender::Recommendation, type: :module do
       empty_system = User.destroy_all
       new_user = create(:user)
       expect(new_user.recommendations).to be_empty
+    end
+  end
+
+  describe "#recommendations HasAndBelongsToManyReflection" do
+    let!(:first_user) { create(:user) }
+    let!(:second_user) { create(:user) }
+    let(:first_album) { create(:album, :with_default_names) }
+    let(:second_album) { create(:album, :with_default_names) }
+    let(:third_album) { create(:album, :with_default_names) }
+    let(:latest_album) { create(:album, name: "CRASH") }
+    let(:trending_album) { create(:album, name: "Gold: Lionel Richie / Commodores") }
+
+    before do
+      first_user.albums << first_album
+      first_user.albums << second_album
+      first_user.albums << trending_album
+      second_user.albums << first_album
+      second_user.albums << second_album
+    end
+    
+    it "returns recommended albums based on similarity measures" do
+      recommendations = trending_album.recommendations
+      album_user_recommendations = recommendations.map { |recommendation| recommendation.first }
+      expect(album_user_recommendations).to include(second_user)
     end
   end
 end
