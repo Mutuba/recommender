@@ -35,7 +35,17 @@ ruby
 
 Copy code
 
-`class Album < ApplicationRecord  include Recommender::Recommendation  has_and_belongs_to_many :users  validates :name, presence: true, uniqueness: { case_sensitive: false }  set_association :users end`
+```
+class User < ApplicationRecord
+  include Recommender::Recommendation
+
+  has_many :song_likes, dependent: :destroy
+  has_many :songs, through: :song_likes
+
+  validates :title, presence: true,  uniqueness: { case_sensitive: false }
+  set_association :songs
+end
+```
 
 Now you can get recommendations for an instance:
 
@@ -43,7 +53,13 @@ ruby
 
 Copy code
 
-`album = Album.find(1) recommendations = album.recommendations(results: 5) recommendations.each do |recommended_album, score|  puts "#{recommended_album.name} - Score: #{score}" end`
+```
+user = User.find(1)
+recommendations = user.recommendations(results: 5)
+recommendations.each do |recommended_song, score|
+  puts "#{recommended_song.name} - Score: #{score}"
+end
+```
 
 ### How It Works
 
