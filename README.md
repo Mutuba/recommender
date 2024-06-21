@@ -35,17 +35,7 @@ ruby
 
 Copy code
 
-```
-class User < ApplicationRecord
-  include Recommender::Recommendation
-
-  has_many :song_likes, dependent: :destroy
-  has_many :songs, through: :song_likes
-
-  validates :title, presence: true,  uniqueness: { case_sensitive: false }
-  set_association :songs
-end
-```
+`class Album < ApplicationRecord  include Recommender::Recommendation  has_and_belongs_to_many :users  validates :name, presence: true, uniqueness: { case_sensitive: false }  set_association :users end`
 
 Now you can get recommendations for an instance:
 
@@ -53,13 +43,7 @@ ruby
 
 Copy code
 
-```
-user = User.find(1)
-recommendations = user.recommendations(results: 5)
-recommendations.each do |recommended_song, score|
-  puts "#{recommended_song.name} - Score: #{score}"
-end
-```
+`album = Album.find(1) recommendations = album.recommendations(results: 5) recommendations.each do |recommended_album, score|  puts "#{recommended_album.name} - Score: #{score}" end`
 
 ### How It Works
 
@@ -73,7 +57,7 @@ These measures are combined to generate a final similarity score, which is then 
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/yourusername/recommender](https://github.com/yourusername/recommender). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/Mutuba/recommender](https://github.com/yourusername/recommender). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
 ### License
 
