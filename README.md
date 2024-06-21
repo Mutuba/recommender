@@ -8,7 +8,7 @@ Add the gem to your Gemfile:
 
 Run `bundle install`
 
-Or directly from your terminal run `gem install recommender\`
+Or directly from your terminal run `gem install recommender`
 
 ## Contributing
 
