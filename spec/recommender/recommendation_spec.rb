@@ -15,14 +15,10 @@ RSpec.describe Recommender::Recommendation, type: :module do
       expect(Recommender::VERSION).not_to be nil
     end
     it "returns recommended movies based on similarity measures" do
-      # add two movies to the list of movies for first_user_with_movies
       first_user_with_movies.movies << first_movie
       first_user_with_movies.movies << second_movie
-      # get second_user_with_movies recommendations
       recommendations = second_user_with_movies.recommendations
-      # Extract the movies from the recommendations
       recommended_movies = recommendations.map { |recommendation| recommendation.first }
-      # Check if the recommended movies include the movies
       expect(recommended_movies).to include(first_movie)
       expect(recommended_movies).to include(second_movie)
     end
