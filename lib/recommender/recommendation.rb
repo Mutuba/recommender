@@ -57,19 +57,12 @@ module Recommender
       other_instances = self.class.where.not(id: id)
       self_items = send(self.class.association_metadata.reflection_name).pluck(:id).to_set
 
-  
       item_recommendations = other_instances.reduce(Hash.new(0)) do |acc, instance|
         instance_items = instance.send(self.class.association_metadata.reflection_name).pluck(:id).to_set
-        common_items = instance_items & self_items
-  
-        # Calculate similarity scores using the Jaccard Index and Dice-Sørensen Coefficient
+        common_items = instance_items & self_items  
         jaccard_index = common_items.size.to_f / (instance_items | self_items).size
         dice_sorensen_coefficient = (2.0 * common_items.size) / (instance_items.size + self_items.size)
-  
-        # Calculate collaborative filtering weight and normalize it accordingly
         collaborative_weight = common_items.size.to_f / Math.sqrt(instance_items.size * self_items.size)
-  
-        # Combine the similarity scores with the collaborative filtering weight
         weight = (jaccard_index + dice_sorensen_coefficient + collaborative_weight) / 3.0
         (instance_items - common_items).each do |item_id|
           # Exclude items that are already liked by the user
@@ -78,9 +71,7 @@ module Recommender
         acc
       end
   
-      # Fetch the movie objects and pair them with their recommendation scores
       sorted_recommendation_ids = item_recommendations.keys.sort_by { |id| item_recommendations[id] }.reverse.take(results)
-
       association_table = self.class.reflect_on_association(self.class.association_metadata.reflection_name).klass
       sorted_recommendation_ids.map { |id| [association_table.find(id), item_recommendations[id]] }
     end
