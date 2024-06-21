@@ -31,10 +31,6 @@ Copy code
 
 Include the `Recommender::Recommendation` module in your model and set the association:
 
-ruby
-
-Copy code
-
 ```
 class Album < ApplicationRecord
   include Recommender::Recommendation
@@ -46,10 +42,6 @@ end
 ```
 
 Now you can get recommendations for an instance:
-
-ruby
-
-Copy code
 
 ```
 user = User.find(1)
