@@ -8,6 +8,9 @@ The `Recommender` gem is a versatile recommendation engine built for Ruby on Rai
 - **Multiple Association Support:** Compatible with `has_and_belongs_to_many`, `has_many :through`, and `has_many` associations, allowing seamless integration with different data models.
 - **Customizable Recommendations:** Easily extendable and configurable to fit the specific needs of your application.
 - **Lightweight and Efficient:** Designed to be efficient and minimalistic, ensuring fast recommendation calculations without heavy overhead.
+- Feature: Similarity based on multiple associations combined with weights.
+- Feature: User-item recommendations based on all their items.
+- Feature: Recommendations based on a weighted mix of various associations.
 
 ### Installation
 
