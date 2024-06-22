@@ -4,5 +4,5 @@ class Album < ApplicationRecord
   has_and_belongs_to_many :users
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  set_association :users
+  set_associations users: 2.0
 end
