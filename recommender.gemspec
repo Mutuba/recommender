@@ -31,12 +31,11 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'activesupport', '>= 3.0.0'
   spec.add_development_dependency "rspec", "~> 3.9.0"
   spec.add_development_dependency  "pg", "~> 1.1"
   spec.add_development_dependency "factory_bot_rails", "~> 6.2"
   spec.add_runtime_dependency 'rails', '~> 7.1.3'
-  spec.add_runtime_dependency 'database_cleaner-active_record'
-  spec.add_runtime_dependency 'pry-rails'
+  spec.add_runtime_dependency 'database_cleaner-active_record', '~> 2.0'
+  spec.add_development_dependency 'pry-rails', '~> 0.3'
   spec.add_runtime_dependency 'faker', '~> 2.21'
 end
