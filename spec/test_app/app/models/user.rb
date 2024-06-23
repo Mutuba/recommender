@@ -6,5 +6,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :albums
 
   validates :name, presence: true,  uniqueness: { case_sensitive: false }
-  set_associations movies: 3.0
+
+  set_associations [:movies]
 end

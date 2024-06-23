@@ -16,7 +16,11 @@ module Recommender
       attr_accessor :association_meta_data
 
       def set_associations(associations)        
-        @association_meta_data = associations.map do |association_name, weight|          
+        unless associations.is_a?(Hash)
+          associations = associations.map { |association| [association, 1.0] }.to_h
+        end
+
+        @association_meta_data = associations.map do |association_name, weight|
           reflection = reflect_on_association(association_name.to_sym)
           raise ArgumentError, "Association '#{association_name}' not found" unless reflection
 
