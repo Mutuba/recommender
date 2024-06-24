@@ -20,10 +20,6 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-sh
-
-Copy code
-
 `bundle install`
 
 ### Usage
