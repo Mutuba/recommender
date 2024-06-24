@@ -16,10 +16,6 @@ The `Recommender` gem is a versatile recommendation engine built for Ruby on Rai
 
 Add this line to your application's Gemfile:
 
-ruby
-
-Copy code
-
 `gem 'recommender'`
 
 And then execute:
