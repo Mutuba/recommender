@@ -1,12 +1,11 @@
 # Changelog
 
-## \[2.0.0\] - 2024-06-22
+## \[2.0.1\] - 2024-07-16
 
 ### Added
 
 - Feature: Similarity based on multiple associations combined with weights.
 - Feature: User-item recommendations based on all their items.
-- Feature: Recommendations based on a weighted mix of various associations.
 
 ### Changed
 

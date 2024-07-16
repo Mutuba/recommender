@@ -10,6 +10,9 @@ The `Recommender` gem is a versatile recommendation engine built for Ruby on Rai
 - **Lightweight and Efficient:** Designed to be efficient and minimalistic, ensuring fast recommendation calculations without heavy overhead.
 - Feature: Similarity based on multiple associations combined with weights.
 - Feature: User-item recommendations based on all their items.
+
+### Coming soon:
+
 - Feature: Recommendations based on a weighted mix of various associations.
 
 ### Installation
@@ -26,24 +29,27 @@ And then execute:
 
 Include the `Recommender::Recommendation` module in your model and set the association:
 
-```
-class Album < ApplicationRecord
-  include Recommender::Recommendation
-  has_and_belongs_to_many :users
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+```ruby
+  class User < ApplicationRecord
+    include Recommender::Recommendation
 
-  set_association users: 2.0
-end
+    has_many :movie_likes, dependent: :destroy
+    has_many :movies, through: :movie_likes
+
+    validates :name, presence: true,  uniqueness: { case_sensitive: false }
+
+    set_association :movies
+  end
 ```
 
 Now you can get recommendations for an instance:
 
-```
-user = User.find(1)
-recommendations = user.recommendations(results: 5)
-recommendations.each do |recommended_album, score|
-  puts "#{recommended_album.name} - Score: #{score}"
-end
+```ruby
+  user = User.find(1)
+  recommendations = user.recommendations(results: 5)
+  recommendations.each do |recommended_movie, score|
+    puts "#{recommended_movie.name} - Score: #{score}"
+  end
 ```
 
 ### How It Works

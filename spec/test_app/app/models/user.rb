@@ -7,5 +7,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true,  uniqueness: { case_sensitive: false }
 
-  set_associations [:movies]
+  set_association :movies
 end
